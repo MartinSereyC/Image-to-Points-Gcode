@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to G-Code Generator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Image to G-Code Generator</h1>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="imageUpload">Upload Image:</label>
+                <input type="file" id="imageUpload" accept="image/*">
+            </div>
+
+            <div class="input-group">
+                <label for="numLayers">Number of Brightness Layers (N):</label>
+                <input type="number" id="numLayers" value="4" min="1">
+            </div>
+
+            <div class="input-group">
+                <label for="gridSize">Point Grid Size (px):</label>
+                <input type="number" id="gridSize" value="10" min="1">
+            </div>
+            
+            <div class="input-group">
+                <label for="pointDiameter">Point Diameter (mm):</label>
+                <input type="number" id="pointDiameter" value="2" min="0.1" step="0.1">
+            </div>
+            
+            <div class="input-group">
+                <label for="zPoint">Z Point Value (min Z, e.g., for drilling/touching bed):</label>
+                <input type="number" id="zPoint" value="-1" step="0.1">
+            </div>
+
+            <div class="input-group">
+                <label for="zTravel">Z Travel Value (safe Z for movement):</label>
+                <input type="number" id="zTravel" value="10" step="0.1">
+            </div>
+
+            <div class="input-group">
+                <label for="feedRateXY">X/Y Feed Rate (mm/min):</label>
+                <input type="number" id="feedRateXY" value="1000" min="1">
+            </div>
+
+            <div class="input-group">
+                <label for="feedRateZ">Z Feed Rate (mm/min):</label>
+                <input type="number" id="feedRateZ" value="200" min="1">
+            </div>
+
+            <div class="input-group">
+                <label for="plotterSize">Plotter Size:</label>
+                <select id="plotterSize">
+                    <option value="A4">A4 (210x297 mm)</option>
+                    <option value="A3">A3 (297x420 mm)</option>
+                    <option value="A2">A2 (420x594 mm)</option>
+                    <option value="Custom">Custom (enter below)</option>
+                </select>
+                <div id="customSizeInputs" style="display: none;">
+                    <label for="customWidth">Width (mm):</label>
+                    <input type="number" id="customWidth" value="210" min="1">
+                    <label for="customHeight">Height (mm):</label>
+                    <input type="number" id="customHeight" value="297" min="1">
+                </div>
+            </div>
+
+            <button id="generateGCode">Generate G-Code</button>
+            <button id="downloadAll">Download All G-Code Files</button>
+        </div>
+
+        <div class="canvas-section">
+            <h2>Image Preview & Points</h2>
+            <div id="p5Canvas"></div>
+        </div>
+        
+        <div id="gcode-output-section" class="gcode-output-section">
+            </div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>
